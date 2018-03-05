@@ -1,0 +1,1 @@
+# Candy Mountain Project based on NativeScript + Angular

@@ -1,0 +1,23 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Home" horizontalAlignment="center"></Label>
+</ActionBar>
+<ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+<ScrollView orientation="vertical">
+    <StackLayout orientation="vertical" class="list-group">
+        <!-- <SearchBar row="0" hint="Search for activity" (clear)="onSearchClear($event)" (submit)="onSearchSubmit($event)"></SearchBar> -->
+        <StackLayout *ngFor="let list of _listActivities" class="list-group-item" >
+            <Label [text]="list.name" horizontalAlignment="center"></Label>
+            <ScrollView orientation="horizontal">
+                <StackLayout orientation="horizontal" class="activity-group" >
+                    <StackLayout *ngFor="let activity of list.activities" class="activity-group-item" >
+                        <GridLayout (tap)="onActivityItemTap(activity)"  rows="auto, auto, auto" >
+                            <Image [src]="activity.imageUrl" stretch="aspectFill" row="1" ></Image>
+                            <Label [text]="activity.name" row="2"  ></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+
+    </StackLayout>
+</ScrollView>

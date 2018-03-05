@@ -1,0 +1,37 @@
+<ActionBar class="action-bar">
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()"></NavigationButton>
+    <Label class="action-bar-title" [text]="activity.name" horizontalAlignment="center"></Label>
+    <!--         <ActionItem ios.position="right" android.position="right" (tap)="onEditButtonTap()">
+        <Label text="Edit" class="action-item"></Label>
+    </ActionItem> -->
+</ActionBar>
+
+<!-- <StackLayout row="1" class="hr-light m-t-15 m-b-15"></StackLayout> -->
+<GridLayout rows="4*,*,7*" columns="*,*,*,*">
+    <Image [src]="activity.imageUrl" stretch="aspectFill" height="200" class="m-b-15" decodeHeight="200" row="0"  colSpan="4"></Image>
+    
+    <Label text="Tags" class="p-l-10 p-b-3 m-r-3 text-secondary details" row="1" col="0" ></Label>
+    <Label [text]="activity.tags" class="text p-b-3 details" row="1"  col="1" ></Label>
+    
+    <Label text="Likes" class="p-l-3 m-r-3 p-b-3 text-secondary details" row="1" col="2" ></Label>
+    <Label [text]="activity.likes"  class="text p-b-3 details" row="1" col="3" ></Label>
+
+    <TabView selectedIndex="0"  (selectedIndexChange)="onIndexChanged($event)" sdkExampleTitle sdkToggleNavButton  row="2" colSpan="4">
+        <StackLayout  class="tabItem" *tabItem="{title: 'Description'}">
+            <!-- <Label [text]="activity.description"  class="p-l-10 p-b-10 text description"></Label> -->
+            <TextView [text]="activity.description" hint="Enter some text"  [editable]="false"
+            class="p-l-10 p-b-10 text description"></TextView>
+        </StackLayout>
+        
+        <StackLayout *tabItem="{title: 'Map'}">
+            <MapView #mapView [latitude]="activity.latitude" [longitude]="activity.longitude"
+            [zoom]="zoom" [bearing]="bearing"
+            [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+            (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+            (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+            (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+            (cameraChanged)="onCameraChanged($event)">
+        </MapView>
+    </StackLayout>
+    </TabView>
+</GridLayout>

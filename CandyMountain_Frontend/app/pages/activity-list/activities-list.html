@@ -1,0 +1,47 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Home" horizontalAlignment="center"></Label>
+    <NavigationButton android.systemIcon="ic_menu_moreoverflow" (tap)="openDrawer()"></NavigationButton>
+<!--         <ActionItem ios.position="right" android.position="right" (tap)="onEditButtonTap()">
+        <Label text="Edit" class="action-item"></Label>
+    </ActionItem> -->
+</ActionBar>
+<RadSideDrawer showOverNavigation="true" tkExampleTitle tkToggleNavButton>
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout">
+            <Label text="Navigation Menu"></Label>
+        </StackLayout>
+        <StackLayout class="sideStackLayout">
+            <Label text="Home" class="sideLabel sideLightGrayLabel"></Label>
+            <Label text="My Lists" class="sideLabel"></Label>
+            <Label text="My Account" class="sideLabel"></Label>
+        </StackLayout>
+        <Label text="Go to next page" (tap)="goToSecondPage()" class="mainContentButton drawerContentButton"></Label>
+        <Label text="Close Drawer" (tap)="onCloseDrawerTap()" class="mainContentButton drawerContentButton"></Label>
+    </StackLayout>
+    <StackLayout tkMainContent>
+        
+        <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+        <ScrollView orientation="vertical">
+            <StackLayout orientation="vertical" class="list-group">
+                <SearchBar row="0" hint="Search for activity" (clear)="onSearchClear($event)" (submit)="onSearchSubmit($event)" (loaded)="onSearchBarLoaded($event)"></SearchBar>
+                <StackLayout *ngFor="let list of _listActivities" class="list-group-item" >
+                    <Label [text]="list.name" horizontalAlignment="center"></Label>
+                    <ScrollView orientation="horizontal">
+                        <StackLayout orientation="horizontal" class="activity-group" >
+                            <StackLayout *ngFor="let activity of list.activities" class="activity-group-item" >
+                                <GridLayout (tap)="onActivityItemTap(activity)"  rows="auto, auto, auto" >
+                                    <Image [src]="activity.imageUrl" stretch="aspectFill" row="1" ></Image>
+                                    <Label [text]="activity.name" row="2"  ></Label>
+                                </GridLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
+
+        <Button text="OPEN DRAWER" (tap)="openDrawer()" class="mainContentButton"></Button>
+        <Button text="GO TO NEXT PAGE" (tap)="goToSecondPage()" class="mainContentButton"></Button>
+    </StackLayout>
+</RadSideDrawer>
